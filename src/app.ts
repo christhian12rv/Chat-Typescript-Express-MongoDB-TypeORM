@@ -34,7 +34,7 @@ export class App {
 			await mongoose.connect('mongodb://localhost:3000/myapp');
 			logger.info('Conectado ao banco de dados: mongodb');
 		} catch (e) {
-			logger.error('Houve um erro ao se conectar ao MongoDB: ', e);
+			logger.error(`Houve um erro ao se conectar ao MongoDB: ${e}`);
 		}
 	}
 }
