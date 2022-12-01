@@ -1,0 +1,1 @@
+Chat created with Typescript, Express, MongoDB and TypeORM.

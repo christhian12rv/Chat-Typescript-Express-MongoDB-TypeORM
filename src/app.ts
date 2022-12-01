@@ -1,13 +1,15 @@
+import 'reflect-metadata';
+import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
-import mongoose from 'mongoose';
 import logger from './logger';
+import appDataSource from './data-source';
 
 export class App {
 	private express: express.Application;
-	private readonly PORT = 8001;
 
 	constructor() {
+		dotenv.config();
 		this.express = express();
 		this.listen();
 		this.middlewares();
@@ -24,17 +26,17 @@ export class App {
 	}
 
 	private listen(): void {
-		this.express.listen(this.PORT, () => {
-			logger.info(`Servidor rodando em: http://localhost:${this.PORT}`);
+		this.express.listen(process.env.PORT, () => {
+			logger.info(`Servidor rodando em: http://localhost:${process.env.PORT}`);
 		});
 	}
 
 	private async database(): Promise<void> {
 		try {
-			await mongoose.connect('mongodb://localhost:3000/myapp');
-			logger.info('Conectado ao banco de dados: mongodb');
+			await appDataSource.initialize();
+			logger.info('DataSource inicializado com sucesso');
 		} catch (e) {
-			logger.error(`Houve um erro ao se conectar ao MongoDB: ${e}`);
+			logger.error(`Houve um erro ao inicializar DataSource:${e}`);
 		}
 	}
 }
