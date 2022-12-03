@@ -36,7 +36,7 @@ export class App {
 			await appDataSource.initialize();
 			logger.info('DataSource inicializado com sucesso');
 		} catch (e) {
-			logger.error(`Houve um erro ao inicializar DataSource:${e}`);
+			logger.error(`Houve um erro ao inicializar DataSource: ${e}`);
 		}
 	}
 }
