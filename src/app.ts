@@ -1,15 +1,14 @@
 import 'reflect-metadata';
-import dotenv from 'dotenv';
-import express from 'express';
-import cors from 'cors';
+import * as express from 'express';
+import * as cors from 'cors';
 import logger from './logger';
 import appDataSource from './data-source';
+import config from './config';
 
 export class App {
 	private express: express.Application;
 
 	constructor() {
-		dotenv.config();
 		this.express = express();
 		this.listen();
 		this.middlewares();
@@ -26,8 +25,8 @@ export class App {
 	}
 
 	private listen(): void {
-		this.express.listen(process.env.PORT, () => {
-			logger.info(`Servidor rodando em: http://localhost:${process.env.PORT}`);
+		this.express.listen(config.port, () => {
+			logger.info(`Servidor rodando em: http://localhost:${config.port}`);
 		});
 	}
 
