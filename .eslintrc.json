@@ -39,6 +39,15 @@
                 "objects": "always"
             }
         ],
+        "brace-style": [
+            "error",
+            "1tbs"
+        ],
+        "object-curly-spacing": [
+            "error",
+            "always"
+        ],
+        "no-console": 2,
         "@typescript-eslint/explicit-function-return-type": 2,
         "arrow-body-style": [
             "error",

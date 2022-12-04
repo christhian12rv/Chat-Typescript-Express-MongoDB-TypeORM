@@ -1,9 +1,10 @@
 import 'reflect-metadata';
 import * as express from 'express';
 import * as cors from 'cors';
-import logger from './logger';
-import appDataSource from './data-source';
-import config from './config';
+import logger from './config/logger';
+import appDataSource from './config/data-source';
+import config from './config/config';
+import userRoute from './routes/user.route';
 
 export class App {
 	private express: express.Application;
@@ -13,6 +14,7 @@ export class App {
 		this.listen();
 		this.middlewares();
 		this.database();
+		this.routes();
 	}
 
 	public getApp(): express.Application {
@@ -26,16 +28,20 @@ export class App {
 
 	private listen(): void {
 		this.express.listen(config.port, () => {
-			logger.info(`Servidor rodando em: http://localhost:${config.port}`);
+			logger.info(`Server running on: http://localhost:${config.port}`);
 		});
 	}
 
 	private async database(): Promise<void> {
 		try {
 			await appDataSource.initialize();
-			logger.info('DataSource inicializado com sucesso');
+			logger.info('DataSource initalized successfully');
 		} catch (e) {
-			logger.error(`Houve um erro ao inicializar DataSource: ${e}`);
+			logger.error(`There was an error initializing DataSource: ${e}`);
 		}
+	}
+
+	private routes(): void {
+		this.express.use('/users', userRoute);
 	}
 }

@@ -3,7 +3,7 @@ import * as log4js from 'log4js';
 log4js.configure({
 	appenders: {
 		out: { type: 'stdout', },
-		cheese: { type: 'file', filename: 'app.log', },
+		cheese: { type: 'file', filename: './logs/app.log', },
 	},
 	categories: { default: { appenders: ['out', 'cheese'], level: 'info', }, },
 });

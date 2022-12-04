@@ -1,5 +1,7 @@
 import { DataSource } from 'typeorm';
 import config from './config';
+import Message from '../entity/message.entity';
+import User from '../entity/user.entity';
 
 const appDataSource = new DataSource({
 	useUnifiedTopology: true,
@@ -11,7 +13,7 @@ const appDataSource = new DataSource({
 	database: config.dbDatabase,
 	synchronize: true,
 	logging: true,
-	entities: [],
+	entities: [User, Message],
 	subscribers: [],
 	migrations: [],
 });
