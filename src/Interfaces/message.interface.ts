@@ -1,8 +1,10 @@
 import UserInterface from './user.interface';
 
 interface MessageInterface {
+	id: string,
 	text: string,
-	user: UserInterface
+	sender: UserInterface,
+	receiver: UserInterface,
 }
 
 export default MessageInterface;

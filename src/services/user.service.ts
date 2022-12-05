@@ -17,7 +17,7 @@ class UserService {
 		const errors = await validate(user);
 		
 		if (errors.length > 0)
-			throw new BadRequestMultipleErrors('Ocurred some errors when creating users', errors);
+			throw new BadRequestMultipleErrors('Occurred some errors when creating users', errors);
 
 		try {
 			await userRepository.save(user);
@@ -30,6 +30,28 @@ class UserService {
 		} catch (e) {
 			throw new BadRequestError('The username already exists');
 		}
+	}
+
+	public async login(username: string, password: string) : Promise<object> {
+		const userRepository = appDataSource.getRepository(User);
+
+		const user = await userRepository.findOneBy({ username, });
+		if (!user)
+			throw new BadRequestError('User not found');
+
+		const validPassword = await user.comparePasswords(password);
+		if (!validPassword)
+			throw new BadRequestError('Incorrect password');
+
+		return {
+			user: {
+				id: user.id,
+				username: user.username,
+				password: user.password,
+				avatar: user.avatar,
+			},
+			token: user.generateToken(),
+		};
 	}
 }
 

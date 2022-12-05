@@ -48,6 +48,10 @@
             "always"
         ],
         "no-console": 2,
+        "curly": [
+            "error",
+            "multi-or-nest"
+        ],
         "@typescript-eslint/explicit-function-return-type": 2,
         "arrow-body-style": [
             "error",

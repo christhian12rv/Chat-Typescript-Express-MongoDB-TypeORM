@@ -10,5 +10,10 @@ export default class Message extends BaseEntity {
 	text: string;
 
 	@ManyToOne(() => User, (user) => user.messages)
-	user: User;
+	@IsNotEmpty()
+	sender: User;
+
+	@ManyToOne(() => User, (user) => user.messages)
+	@IsNotEmpty()
+	receiver: User;
 }

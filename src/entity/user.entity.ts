@@ -1,8 +1,11 @@
 import { Entity, Column, OneToMany, BeforeInsert } from 'typeorm';
 import { Length, MinLength } from 'class-validator';
 import * as bcrypt from 'bcrypt';
+import * as jwt from 'jsonwebtoken';
 import Message from './message.entity';
 import BaseEntity from './baseEntity.entity';
+import config from '../config/config';
+import logger from '../config/logger';
 
 @Entity()
 export default class User extends BaseEntity {
@@ -23,7 +26,7 @@ export default class User extends BaseEntity {
 	@Column()
 	avatar: string;
 
-	@OneToMany(() => Message, (message) => message.user)
+	@OneToMany(() => Message, (message) => message.sender || message.receiver)
 	messages: Message[];
 
 	@BeforeInsert()
@@ -37,5 +40,21 @@ export default class User extends BaseEntity {
 		const randomId = Math.floor(Math.random() * 1000000) + 1;
 
 		this.avatar = `https://joeschmoe.io/api/v1/${randomId}`;
+	}
+
+	public comparePasswords(password: string) : boolean {
+		return bcrypt.compareSync(password, this.password);
+	}
+
+	public generateToken(): string  {
+		const decodedToken = {
+			id: this.id,
+			username: this.username,
+			avatar: this.avatar,
+		};
+		logger.info(config);
+		return jwt.sign(decodedToken, config.jwtSecret, {
+			expiresIn: '1d',
+		});
 	}
 }

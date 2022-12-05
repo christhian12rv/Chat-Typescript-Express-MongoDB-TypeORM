@@ -1,6 +1,4 @@
-import * as dotenv from 'dotenv';
-
-dotenv.config();
+import 'dotenv/config';
 
 export default {
 	port: process.env.PORT,
@@ -9,4 +7,5 @@ export default {
 	dbUsername: process.env.DB_USERNAME,
 	dbPassword: process.env.DB_PASSWORD,
 	dbDatabase: process.env.DB_DATABASE,
+	jwtSecret: process.env.JWT_SECRET,
 };
