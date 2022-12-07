@@ -7,7 +7,7 @@ import config from './config/config';
 import userRoute from './routes/user.route';
 import messageRoute from './routes/message.route';
 
-export class App {
+export default class App {
 	private express: express.Application;
 
 	constructor() {

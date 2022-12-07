@@ -4,6 +4,6 @@ import authMiddleware from '../middlewares/auth.middleware';
 
 const messageRoute = Router();
 
-messageRoute.post('/:id', authMiddleware.authorizeUserByToken, messageController.send);
+messageRoute.post('/:id', authMiddleware.authorizeUserByParams, authMiddleware.authorizeUserByToken, messageController.send);
 
 export default messageRoute;

@@ -1,4 +1,5 @@
 {
+  
   "name": "chat-typescript-mongodb-express",
   "version": "1.0.0",
   "description": "",
@@ -6,6 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "eslint . --ext .ts && cd src/ && ts-node-dev --respawn index.ts",
+    "debug": "eslint . --ext .ts && cd src/ && ts-node-dev --files --transpile-only --respawn --inspect=4321 index.ts",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix"
   },

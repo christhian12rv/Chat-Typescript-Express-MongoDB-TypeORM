@@ -5,7 +5,6 @@ import * as jwt from 'jsonwebtoken';
 import Message from './message.entity';
 import BaseEntity from './baseEntity.entity';
 import config from '../config/config';
-import logger from '../config/logger';
 
 @Entity()
 export default class User extends BaseEntity {
@@ -52,7 +51,7 @@ export default class User extends BaseEntity {
 			username: this.username,
 			avatar: this.avatar,
 		};
-		logger.info(config);
+		
 		return jwt.sign(decodedToken, config.jwtSecret, {
 			expiresIn: '1d',
 		});

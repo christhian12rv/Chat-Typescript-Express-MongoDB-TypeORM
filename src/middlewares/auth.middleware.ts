@@ -31,6 +31,25 @@ class AuthMiddleware {
 			return res.status(401).send({ message: 'Invalid token', });
 		}		
 	}
+
+	public async authorizeUserByParams(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+
+		const { id, } = req.params;
+
+		const userRepository = appDataSource.getMongoRepository(User);
+
+		try {
+			const user = await userRepository.findOneBy({ _id: new ObjectID(id), });
+			if (!user)
+				return res.status(400).send({ message: 'User not found', });
+
+			req.userChat = user;
+
+			return next();
+		} catch (e) {
+			return res.status(401).send({ message: 'Invalid user', });
+		}		
+	}
 }
 
 export default new AuthMiddleware();

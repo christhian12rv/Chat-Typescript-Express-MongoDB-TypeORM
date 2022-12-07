@@ -5,11 +5,10 @@ import User from '../entity/user.entity';
 import BadRequestError from '../errors/BadRequestError';
 import BadRequestMultipleErrors from '../errors/BadRequestMultipleErrors';
 import MessageInterface from '../Interfaces/message.interface';
-import UserInterface from '../Interfaces/user.interface';
 import validate from '../utils/validate';
 
 class MessageService {
-	public async send(text: string, sender: UserInterface, receiverId: string) : Promise<MessageInterface> {
+	public async send(text: string, senderId: string, receiverId: string) : Promise<MessageInterface> {
 		const userRepository = appDataSource.getMongoRepository(User);
 		const messageRepository = appDataSource.getRepository(Message);
 
@@ -19,7 +18,7 @@ class MessageService {
 
 		const message = new Message();
 		message.text = text;
-		message.sender = await userRepository.findOneBy({ _id: new ObjectID(sender.id), });
+		message.sender = await userRepository.findOneBy({ _id: new ObjectID(senderId), });
 		message.receiver = userReceiver;
 
 		const errors = await validate(message);
