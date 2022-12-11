@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
-import { ObjectID } from 'mongodb';
 import config from '../config/config';
 import appDataSource from '../config/data-source';
 import logger from '../config/logger';
@@ -16,11 +15,11 @@ class AuthMiddleware {
 			return res.status(401).send({ message: `Error on access route ${req.originalUrl}: restricted access`, });
 		}
 
-		const userRepository = appDataSource.getMongoRepository(User);
+		const userRepository = appDataSource.getRepository(User);
 
 		try {
 			const userToken = jwt.verify(token.toString(), config.jwtSecret) as unknown as UserInterface;
-			const user = await userRepository.findOneBy({ _id: new ObjectID(userToken.id), });
+			const user = await userRepository.findOneBy({ id: userToken.id, });
 			if (!user)
 				return res.status(400).send({ message: 'User not found', });
 
@@ -36,10 +35,10 @@ class AuthMiddleware {
 
 		const { id, } = req.params;
 
-		const userRepository = appDataSource.getMongoRepository(User);
+		const userRepository = appDataSource.getRepository(User);
 
 		try {
-			const user = await userRepository.findOneBy({ _id: new ObjectID(id), });
+			const user = await userRepository.findOneBy({ id, });
 			if (!user)
 				return res.status(400).send({ message: 'User not found', });
 

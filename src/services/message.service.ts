@@ -1,4 +1,4 @@
-import { ObjectID } from 'mongodb';
+import { Equal } from 'typeorm';
 import appDataSource from '../config/data-source';
 import Message from '../entity/message.entity';
 import User from '../entity/user.entity';
@@ -8,17 +8,17 @@ import MessageInterface from '../Interfaces/message.interface';
 import validate from '../utils/validate';
 
 class MessageService {
-	public async send(text: string, senderId: string, receiverId: string) : Promise<MessageInterface> {
-		const userRepository = appDataSource.getMongoRepository(User);
+	public async send(text: string, senderId: number, receiverId: number) : Promise<MessageInterface> {
+		const userRepository = appDataSource.getRepository(User);
 		const messageRepository = appDataSource.getRepository(Message);
 
-		const userReceiver = await userRepository.findOneBy({ _id: new ObjectID(receiverId), });
+		const userReceiver = await userRepository.findOneBy({ id: receiverId, });
 		if (!userReceiver)
 			throw new BadRequestError('User receiver not found');
 
 		const message = new Message();
 		message.text = text;
-		message.sender = await userRepository.findOneBy({ _id: new ObjectID(senderId), });
+		message.sender = await userRepository.findOneBy({ id: senderId, });
 		message.receiver = userReceiver;
 
 		const errors = await validate(message);
@@ -31,6 +31,26 @@ class MessageService {
 		} catch (e) {
 			throw new BadRequestError('Occurred an error when sending message');
 		}
+	}
+
+	public async list(userLoggedId: number, userChatId: number): Promise<MessageInterface[]>{
+		const messageRepository = appDataSource.getRepository(Message);
+		
+		const messages = await messageRepository.find({
+			where: [
+				{
+					sender: Equal(userLoggedId),
+					receiver: Equal(userChatId),
+				},
+				{
+					sender: Equal(userChatId),
+					receiver: Equal(userLoggedId),
+				}
+			],
+			loadRelationIds: true,
+		});
+
+		return messages;
 	}
 }
 

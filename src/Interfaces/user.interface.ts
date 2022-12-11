@@ -1,7 +1,7 @@
 import MessageInterface from './message.interface';
 
 interface UserInterface {
-	id: string,
+	id: number,
 	username: string,
 	password: string,
 	avatar: string,

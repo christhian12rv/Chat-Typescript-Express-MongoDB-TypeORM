@@ -4,8 +4,7 @@ import Message from '../entity/message.entity';
 import User from '../entity/user.entity';
 
 const appDataSource = new DataSource({
-	useUnifiedTopology: true,
-	type: 'mongodb',
+	type: 'mysql',
 	host: config.dbHost,
 	port: Number(config.dbPort) ?? 9000,
 	username: config.dbUsername,

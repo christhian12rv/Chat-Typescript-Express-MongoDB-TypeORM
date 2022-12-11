@@ -1,50 +1,126 @@
 {
   
   "name": "chat-typescript-mongodb-express",
+  
   "version": "1.0.0",
+  
   "description": "",
+  
   "main": "index.js",
+  
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "eslint . --ext .ts && cd src/ && ts-node-dev --respawn index.ts",
-    "debug": "eslint . --ext .ts && cd src/ && ts-node-dev --files --transpile-only --respawn --inspect=4321 index.ts",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix"
+  
+    
+  "test": "echo \"Error: no test specified\" && exit 1",
+  
+    
+  "start": "eslint . --ext .ts && cd src/ && ts-node-dev --respawn index.ts",
+  
+    
+  "debug": "eslint . --ext .ts && cd src/ && ts-node-dev --files --transpile-only --respawn --inspect=4321 index.ts",
+  
+    
+  "lint": "eslint . --ext .ts",
+  
+    
+  "lint:fix": "eslint . --ext .ts --fix"
+  
   },
+  
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/christhian12rv/Chat-Typescript-MongoDB-Express.git"
+  
+    
+  "type": "git",
+  
+    
+  "url": "git+https://github.com/christhian12rv/Chat-Typescript-MongoDB-Express.git"
+  
   },
+  
   "author": "Christhian Rezende Vieira",
+  
   "license": "MIT",
+  
   "bugs": {
-    "url": "https://github.com/christhian12rv/Chat-Typescript-MongoDB-Express/issues"
+  
+    
+  "url": "https://github.com/christhian12rv/Chat-Typescript-MongoDB-Express/issues"
+  
   },
+  
   "homepage": "https://github.com/christhian12rv/Chat-Typescript-MongoDB-Express#readme",
+  
   "devDependencies": {
-    "@types/bcrypt": "^5.0.0",
-    "@types/cors": "^2.8.12",
-    "@types/dotenv": "^8.2.0",
-    "@types/express": "^4.17.14",
-    "@types/jsonwebtoken": "^8.5.9",
-    "@typescript-eslint/eslint-plugin": "^5.45.0",
-    "@typescript-eslint/parser": "^5.45.0",
-    "eslint": "^8.28.0",
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^4.9.3"
+  
+    
+  "@types/bcrypt": "^5.0.0",
+  
+    
+  "@types/cors": "^2.8.12",
+  
+    
+  "@types/dotenv": "^8.2.0",
+  
+    
+  "@types/express": "^4.17.14",
+  
+    
+  "@types/jsonwebtoken": "^8.5.9",
+  
+    
+  "@typescript-eslint/eslint-plugin": "^5.45.0",
+  
+    
+  "@typescript-eslint/parser": "^5.45.0",
+  
+    
+  "eslint": "^8.28.0",
+  
+    
+  "ts-node-dev": "^2.0.0",
+  
+    
+  "typescript": "^4.9.3"
+  
   },
+  
   "dependencies": {
-    "bcrypt": "^5.1.0",
-    "class-validator": "^0.13.2",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "install": "^0.13.0",
-    "jsonwebtoken": "^8.5.1",
-    "log4js": "^6.7.1",
-    "mongodb": "^3.7.3",
-    "npm": "^9.1.2",
-    "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.3.10"
+  
+    
+  "bcrypt": "^5.1.0",
+  
+    
+  "class-validator": "^0.13.2",
+  
+    
+  "cors": "^2.8.5",
+  
+    
+  "dotenv": "^16.0.3",
+  
+    
+  "express": "^4.18.2",
+  
+    
+  "install": "^0.13.0",
+  
+    
+  "jsonwebtoken": "^8.5.1",
+  
+    
+  "log4js": "^6.7.1",
+  
+    
+  "mysql": "^2.18.1",
+  
+    
+  "npm": "^9.1.2",
+  
+    
+  "reflect-metadata": "^0.1.13",
+  
+    
+  "typeorm": "^0.3.10"
+  
   }
 }

@@ -1,9 +1,9 @@
-import { CreateDateColumn, DeleteDateColumn, Entity, ObjectIdColumn, UpdateDateColumn } from 'typeorm';
+import { CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
 class BaseEntity {
-	@ObjectIdColumn()
-	id: string;
+	@PrimaryGeneratedColumn()
+	id: number;
 
 	@CreateDateColumn()
 	createdAt: Date;

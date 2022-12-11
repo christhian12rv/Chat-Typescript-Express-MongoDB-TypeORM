@@ -14,7 +14,7 @@ class MessageController {
 		const user = req.user;
 
 		try {
-			const messageResponse = await messageService.send(text, user.id, id);
+			const messageResponse = await messageService.send(text, user.id, parseInt(id));
 
 			logger.info(`Message sent to ${messageResponse.receiver.username} successfully`);
 			return res.status(200).send({ message: `Message sent to ${messageResponse.receiver.username} successfully`, data: { message: messageResponse, }, });
@@ -26,8 +26,14 @@ class MessageController {
 				return res.status(e.status).send({ message: 'Occurred an error when sending message', errors: [e.message], });
 			
 		}
+	}
 
-		
+	public async list(req: Request, res: Response): Promise<Response> {
+		const userLoggedId = req.user.id;
+		const userChatId = req.userChat.id;
+
+		const messages = await messageService.list(userLoggedId, userChatId);
+		return res.status(200).send({ message: 'Messages searched successfully', data: { messages, }, });
 	}
 }
 
