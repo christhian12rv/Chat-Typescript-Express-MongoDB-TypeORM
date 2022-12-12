@@ -36,7 +36,7 @@ class MessageService {
 	public async list(userLoggedId: number, userChatId: number): Promise<MessageInterface[]>{
 		const messageRepository = appDataSource.getRepository(Message);
 		
-		const messages = await messageRepository.find({
+		let messages = await messageRepository.find({
 			where: [
 				{
 					sender: Equal(userLoggedId),
@@ -47,8 +47,19 @@ class MessageService {
 					receiver: Equal(userLoggedId),
 				}
 			],
-			loadRelationIds: true,
-		});
+			relations: ['sender', 'receiver'],
+			order: {
+				createdAt: 'DESC',
+			},
+		}) as MessageInterface[];
+
+		messages = messages.map(m => ({
+			id: m.id,
+			text: m.text,
+			isSender: m.sender.id === userLoggedId,
+			createdAt: m.createdAt,
+			updatedAt: m.updatedAt,
+		}));
 
 		return messages;
 	}

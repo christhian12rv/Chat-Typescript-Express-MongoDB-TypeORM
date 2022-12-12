@@ -38,7 +38,7 @@ class AuthMiddleware {
 		const userRepository = appDataSource.getRepository(User);
 
 		try {
-			const user = await userRepository.findOneBy({ id, });
+			const user = await userRepository.findOneBy({ id: parseInt(id), });
 			if (!user)
 				return res.status(400).send({ message: 'User not found', });
 

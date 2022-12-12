@@ -40,6 +40,26 @@ class UserController {
 				return res.status(e.status).send({ message: 'Occurred an error when authenticate user', errors: [e.message], });
 		}
 	}
+
+	public async getById(req: Request, res: Response): Promise<Response> {
+		logger.info(`Calling ${req.originalUrl}`);
+
+		const userChat = req.userChat;
+
+		logger.info('User searched successfully');
+		return res.status(200).send({ message: 'User searched successfully', data: { user: userChat, }, });
+	}
+
+	public async list(req: Request, res: Response): Promise<Response> {
+		logger.info(`Calling ${req.originalUrl}`);
+
+		const user = req.user;
+
+		const users = await userService.list(user.id);
+
+		logger.info('Users searched successfully');
+		return res.status(200).send({ message: 'Users searched successfully', data: { users, }, });
+	}
 }
 
 export default new UserController();

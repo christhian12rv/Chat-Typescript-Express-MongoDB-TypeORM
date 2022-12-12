@@ -29,10 +29,13 @@ class MessageController {
 	}
 
 	public async list(req: Request, res: Response): Promise<Response> {
+		logger.info(`Calling ${req.originalUrl}`);
+
 		const userLoggedId = req.user.id;
 		const userChatId = req.userChat.id;
 
 		const messages = await messageService.list(userLoggedId, userChatId);
+		logger.info('Messages searched successfully');
 		return res.status(200).send({ message: 'Messages searched successfully', data: { messages, }, });
 	}
 }

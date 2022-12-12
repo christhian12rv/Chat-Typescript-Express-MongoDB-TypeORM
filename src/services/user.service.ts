@@ -1,9 +1,11 @@
+import { Equal,  Not } from 'typeorm';
 import appDataSource from '../config/data-source';
 import User from '../entity/user.entity';
 import BadRequestError from '../errors/BadRequestError';
 import BadRequestMultipleErrors from '../errors/BadRequestMultipleErrors';
 import UserInterface from '../Interfaces/user.interface';
 import validate from '../utils/validate';
+import messageService from './message.service';
 
 class UserService {
 	public async register(username: string, password: string, avatar: string): Promise<UserInterface> {
@@ -53,6 +55,26 @@ class UserService {
 			token: user.generateToken(),
 		};
 	}
+
+	public async list(id: number): Promise<UserInterface[]> {
+		const userRepository = appDataSource.getRepository(User);
+
+		let users = await userRepository.find({ 
+			where: {
+				id: Not(Equal(id)),
+			},
+		}) as UserInterface[];
+
+		users = (await Promise.all(users.map(async u => {
+			const messages = await messageService.list(id, u.id);
+
+			if (messages.length > 0)
+				return { ...u, lastMessage: messages[0], };
+		}))).filter(u => !!u);
+
+		return users;
+	}
+	
 }
 
 export default new UserService();

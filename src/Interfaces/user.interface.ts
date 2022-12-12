@@ -5,7 +5,10 @@ interface UserInterface {
 	username: string,
 	password: string,
 	avatar: string,
-	messages?: MessageInterface[]
+	messages?: MessageInterface[],
+	createdAt?: Date,
+	updatedAt?: Date,
+	deletedAt?: Date,
 }
 
 export default UserInterface;
